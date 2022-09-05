@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "jota-python-utils"
+name = "jota-utils"
 version = "0.1.0"
 description = "Utils library for JOTA backend apps."
 authors = ["Tecnologia JOTA <tecnologia@jota.info>"]
