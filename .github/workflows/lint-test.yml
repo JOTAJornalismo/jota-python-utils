@@ -1,6 +1,10 @@
 name: Lint
 
 on:
+  push:
+    branches:
+      - develop
+      - main
   pull_request:
     branches: [ develop, main ]
 
@@ -26,4 +30,4 @@ jobs:
         poetry run pylint jota_utils
         poetry run flake8 --statistics --append-config=tox.ini jota_utils/
     - name: Test with pytest
-      run: pytest
+      run: poetry run pytest
