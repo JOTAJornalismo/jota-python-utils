@@ -202,13 +202,3 @@ Temporary Items
 **/.serverless
 
 # Project specifics
-data/
-tmp/
-.pylintrc
-!configs/pylintrc
-tox.ini
-!configs/tox.ini
-pytest.ini
-!configs/pytest.ini
-tests/output/
-!tests/output/README.md
