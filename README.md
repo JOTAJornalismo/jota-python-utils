@@ -1,5 +1,5 @@
 # Jota Python Utils
-This liberary contains a few useful code used in our backend applications.
+This library contains a few useful code used in our backend applications.
 
 ## Install
 With poetry:
