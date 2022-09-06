@@ -1,3 +1,4 @@
+from contextlib import suppress
 from functools import reduce
 import json
 
@@ -47,7 +48,7 @@ def is_superset(superset, smallset):
 def json_loads(json_string, default=None):
     """ Decode a JSON string, allowing default value on decoding error."""
 
-    try:
+    with suppress(json.decoder.JSONDecodeError, TypeError):
         return json.loads(json_string)
-    except (json.decoder.JSONDecodeError, TypeError):
-        return default
+
+    return default
