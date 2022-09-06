@@ -1,14 +1,17 @@
 from functools import reduce
+import json
 
 
 def getattr_nl(obj, name, default=None):
-    """ Same as getattr(), but allows dot notation lookup.
+    """ Allows dot notation lookup for dicts and class instances.
 
     Ex: getattr_nl(obj, 'foo.bar')
     """
 
     try:
-        return reduce(getattr, name.split('.'), obj)
+        fn_lookup = dict.get if obj and isinstance(obj, dict) else getattr
+
+        return reduce(fn_lookup, name.split('.'), obj)
     except AttributeError:
         return default
 
@@ -39,3 +42,12 @@ def is_superset(superset, smallset):
         return False
 
     return smallset.items() <= superset.items()
+
+
+def json_loads(json_string, default=None):
+    """ Decode a JSON string, allowing default value on decoding error."""
+
+    try:
+        return json.loads(json_string)
+    except (json.decoder.JSONDecodeError, TypeError):
+        return default
