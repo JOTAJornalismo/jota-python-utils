@@ -35,6 +35,7 @@ class GetAttrNlTest(TestCase):
     def test_with_invalid_objs(self):
         self.assertEqual(getattr_nl(None, 'a.b.c.d'), None)
         self.assertEqual(getattr_nl(None, 'a.b.c.d', default=[]), [])
+        self.assertEqual(getattr_nl({}, 'a.b.c.d'), None)
         self.assertEqual(getattr_nl({'e': 'x'}, 'a.b.c.d'), None)
         self.assertEqual(getattr_nl(False, 'a.b.c.d'), None)
 
