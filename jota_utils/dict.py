@@ -57,14 +57,10 @@ def json_loads(json_string, default=None):
 def with_except(obj, keys):
     """Returns a dictionary without the specified keys."""
 
-    for key in keys:
-        if key in obj:
-            obj.pop(key)
-
-    return obj
+    return with_only(obj, set(obj.keys()) - set(keys))
 
 
 def with_only(obj, keys):
     """Returns a dictionary only with the specified keys."""
 
-    return with_except(obj, set(obj.keys()) - set(keys))
+    return {key: value for key, value in obj.items() if key in keys}
