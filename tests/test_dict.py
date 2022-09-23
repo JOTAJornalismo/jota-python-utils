@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from jota_utils.dict import getattr_nl, json_loads
+from jota_utils.dict import getattr_nl, json_loads, with_except, with_only
 
 
 class JsonLoadsTest(TestCase):
@@ -36,4 +36,21 @@ class GetAttrNlTest(TestCase):
         self.assertEqual(getattr_nl(None, 'a.b.c.d'), None)
         self.assertEqual(getattr_nl(None, 'a.b.c.d', default=[]), [])
         self.assertEqual(getattr_nl({}, 'a.b.c.d'), None)
+        self.assertEqual(getattr_nl({'e': 'x'}, 'a.b.c.d'), None)
         self.assertEqual(getattr_nl(False, 'a.b.c.d'), None)
+
+
+class ExceptOnlyTest(TestCase):
+    TEST_DICT = {'a': 1, 'b': 2, 'c': 3}
+
+    def test_with_except(self):
+        self.assertEqual(with_except(self.TEST_DICT.copy(), ['b', 'c']), {'a': 1})
+        self.assertEqual(with_except({}, ['b', 'c']), {})
+        self.assertEqual(with_except(self.TEST_DICT.copy(), []), self.TEST_DICT.copy())
+        self.assertEqual(with_except({}, []), {})
+
+    def test_with_only(self):
+        self.assertEqual(with_only(self.TEST_DICT.copy(), ['b', 'c']), {'b': 2, 'c': 3})
+        self.assertEqual(with_only({}, ['b', 'c']), {})
+        self.assertEqual(with_only(self.TEST_DICT.copy(), []), {})
+        self.assertEqual(with_only({}, []), {})

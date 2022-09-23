@@ -13,7 +13,7 @@ def getattr_nl(obj, name, default=None):
         fn_lookup = dict.get if obj and isinstance(obj, dict) else getattr
 
         return reduce(fn_lookup, name.split('.'), obj)
-    except AttributeError:
+    except (AttributeError, TypeError):
         return default
 
 
@@ -52,3 +52,15 @@ def json_loads(json_string, default=None):
         return json.loads(json_string)
 
     return default
+
+
+def with_except(obj, keys):
+    """Returns a dictionary without the specified keys."""
+
+    return with_only(obj, set(obj.keys()) - set(keys))
+
+
+def with_only(obj, keys):
+    """Returns a dictionary only with the specified keys."""
+
+    return {key: value for key, value in obj.items() if key in keys}
