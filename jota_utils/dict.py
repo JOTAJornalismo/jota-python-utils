@@ -55,12 +55,32 @@ def json_loads(json_string, default=None):
 
 
 def with_except(obj, keys):
-    """Returns a dictionary without the specified keys."""
+    """ Returns a dictionary without the specified keys. """
 
     return with_only(obj, set(obj.keys()) - set(keys))
 
 
 def with_only(obj, keys):
-    """Returns a dictionary only with the specified keys."""
+    """ Returns a dictionary only with the specified keys. """
 
     return {key: value for key, value in obj.items() if key in keys}
+
+
+def find_in_dict_list(search_key, value, dict):
+    """ Search in a list of dicts by a specific key and value,
+    returns a list of dicts corresponding to the search.
+
+    Ex: data = [{'fruit': 'orange'}, {'fruit': 'apple'}, {'fruit': 'orange'}]
+        find_in_dict_list('fruit', 'orange', data)
+        -> [{'fruit': 'orange'}, {'fruit': 'orange'}]
+    """
+
+    return list(filter(lambda data: getattr_nl(data, search_key) == value, dict))
+
+
+def find_first_in_dict_list(search_key, value, dict):
+    """ Same as find_in_dict_list but returns only the first result. """
+
+    result = find_in_dict_list(search_key, value, dict)
+
+    return result[0] if result else None

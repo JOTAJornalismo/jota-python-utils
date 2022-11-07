@@ -1,6 +1,7 @@
 from unittest import TestCase
 
-from jota_utils.dict import getattr_nl, json_loads, with_except, with_only
+from jota_utils.dict import (find_first_in_dict_list, find_in_dict_list,
+                             getattr_nl, json_loads, with_except, with_only)
 
 
 class JsonLoadsTest(TestCase):
@@ -54,3 +55,22 @@ class ExceptOnlyTest(TestCase):
         self.assertEqual(with_only({}, ['b', 'c']), {})
         self.assertEqual(with_only(self.TEST_DICT.copy(), []), {})
         self.assertEqual(with_only({}, []), {})
+
+
+class FindInDictListTest(TestCase):
+
+    def test_find_in_dict_list(self):
+        data = [{'fruit': 'orange'}, {'fruit': 'apple'}, {'fruit': 'orange'}]
+
+        self.assertEqual(
+            find_in_dict_list('fruit', 'orange', data),
+            [{'fruit': 'orange'}, {'fruit': 'orange'}]
+        )
+        self.assertEqual(find_in_dict_list('inexisting_key', 'orange', data), [])
+        self.assertEqual(find_in_dict_list('fruit', 'orange', []), [])
+
+    def test_find_first_in_dict_list(self):
+        data = [{'fruit': 'orange'}, {'fruit': 'apple'}, {'fruit': 'orange'}]
+
+        self.assertEqual(find_first_in_dict_list('fruit', 'orange', data), {'fruit': 'orange'})
+        self.assertEqual(find_first_in_dict_list('fruit', 'lemon', data), None)
