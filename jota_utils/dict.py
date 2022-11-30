@@ -84,3 +84,32 @@ def find_first_in_dict_list(search_key, value, dict):
     result = find_in_dict_list(search_key, value, dict)
 
     return result[0] if result else None
+
+
+def duplicates(key, obj):
+    """ Given a list of dictionaries, returns the value of all keys
+    which are present more than once.
+
+    Ex: data = [{'value': 1}, {'value': 2}, {'value': 1}]
+        duplicates('value', data)
+        -> [1]
+    """
+
+    keys = pluck(key, obj)
+
+    return list(set([i for i in keys if keys.count(i) > 1]))
+
+
+def remove_duplicates(key, obj):
+    """ Given a list of dictionaries, remove the items in
+    which the key value is present more than once.
+
+    Ex: data = [{'value': 1}, {'value': 2}, {'value': 1}]
+        remove_duplicates('value', data)
+        print(data)
+        -> [{'value': 2}, {'value': 1}]
+    """
+
+    for item in obj.copy():
+        if item[key] in duplicates(key, obj):
+            obj.remove(item)

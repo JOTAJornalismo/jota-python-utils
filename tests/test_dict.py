@@ -1,7 +1,8 @@
 from unittest import TestCase
 
 from jota_utils.dict import (find_first_in_dict_list, find_in_dict_list,
-                             getattr_nl, json_loads, with_except, with_only)
+                             getattr_nl, json_loads, with_except, with_only,
+                             duplicates, remove_duplicates)
 
 
 class JsonLoadsTest(TestCase):
@@ -74,3 +75,31 @@ class FindInDictListTest(TestCase):
 
         self.assertEqual(find_first_in_dict_list('fruit', 'orange', data), {'fruit': 'orange'})
         self.assertEqual(find_first_in_dict_list('fruit', 'lemon', data), None)
+
+
+class DuplicatesTest(TestCase):
+
+    def test_duplicates(self):
+        data = [{'fruit': 'orange'}, {'fruit': 'apple'}, {'fruit': 'orange'}]
+
+        self.assertEqual(duplicates('fruit', data), ['orange'])
+        self.assertEqual(duplicates('fruit', []), [])
+        self.assertEqual(duplicates('fruit', [{'fruit': 'apple'}, {'fruit': 'orange'}]), [])
+
+    def test_remove_duplicates(self):
+        data = [
+            {'id': 1, 'fruit': 'orange'},
+            {'id': 2, 'fruit': 'apple'},
+            {'id': 3, 'fruit': 'orange'},
+            {'id': 4, 'fruit': 'apple'}
+        ]
+        remove_duplicates('fruit', data)
+        self.assertEqual(data, [{'id': 3, 'fruit': 'orange'}, {'id': 4, 'fruit': 'apple'}])
+
+        data = []
+        remove_duplicates('fruit', data)
+        self.assertEqual(data, [])
+
+        data = [{'fruit': 'apple'}, {'fruit': 'orange'}]
+        remove_duplicates('fruit', data)
+        self.assertEqual(data, [{'fruit': 'apple'}, {'fruit': 'orange'}])
