@@ -10,9 +10,10 @@ def getattr_nl(obj, name, default=None):
     """
 
     try:
-        fn_lookup = dict.get if obj and isinstance(obj, dict) else getattr
+        is_dict = lambda obj: obj and isinstance(obj, dict)
+        extract_key = lambda value, key: value.get(key) if is_dict(value) else getattr(value, key)
 
-        return reduce(fn_lookup, name.split('.'), obj)
+        return reduce(extract_key, name.split('.'), obj)
     except (AttributeError, TypeError):
         return default
 
@@ -26,7 +27,7 @@ def pluck(key, obj):
         -> [1, 2]
     """
 
-    return [item[key] for item in obj]
+    return [getattr_nl(item, key) for item in obj]
 
 
 def setattrs(obj, attrs):
