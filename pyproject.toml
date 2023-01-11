@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "jota-utils"
-version = "0.5.0"
+version = "0.6.0"
 description = "Utils library for JOTA backend apps."
 authors = ["Tecnologia JOTA <tecnologia@jota.info>"]
 
 [tool.poetry.dependencies]
 python = ">= 3.7.2, <4.0"
-Django = "3.2.15"
+Django = "3.2.16"
 django-phonenumbers = "^1.0.1"
 django-phonenumber-field = "^6.3.0"
 
