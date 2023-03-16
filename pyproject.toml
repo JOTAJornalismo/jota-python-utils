@@ -6,7 +6,7 @@ authors = ["Tecnologia JOTA <tecnologia@jota.info>"]
 
 [tool.poetry.dependencies]
 python = ">= 3.7.2, <4.0"
-Django = "3.2.16"
+Django = "3.2.18"
 django-phonenumbers = "^1.0.1"
 django-phonenumber-field = "^6.3.0"
 
