@@ -5,8 +5,8 @@ description = "Utils library for JOTA backend apps."
 authors = ["Tecnologia JOTA <tecnologia@jota.info>"]
 
 [tool.poetry.dependencies]
-python = ">= 3.7.2, <4.0"
-Django = "3.2.*"
+python = ">= 3.13, <4.0"
+Django = "5.2.8"
 django-phonenumbers = "^1.0.1"
 django-phonenumber-field = "^6.3.0"
 
@@ -20,5 +20,10 @@ flake8 = "^5.0.4"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.pytest.ini_options]
-addopts = "--cov=jota_utils --cov-report=xml:coverage.xml"
+[tool.coverage.run]
+omit = [
+    "*/tests/*",
+    "*/__init__.py",
+    "encoding.py",
+]
+    

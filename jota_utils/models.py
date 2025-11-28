@@ -1,6 +1,5 @@
 import uuid
 
-
 def django_unique_upload_to_filename(_, filename):
     """
     Unique filename generator for FileField fields.
